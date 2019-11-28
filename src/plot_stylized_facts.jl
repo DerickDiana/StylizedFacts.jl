@@ -14,13 +14,13 @@ end
 
 function StylizedFactsPlot(price_path)
     log_price_path = log.(price_path)
-    log_price_returns = diff(log_price_path)
+    log_returns = diff(log_price_path)
 
     order_signs = tick_rule(price_path)
     order_flow_acf = autocor(order_signs)
 
-    log_returns_acf = autocor(log_price_returns)
-    abs_log_returns_acf = autocor(abs.(log_price_returns))
+    log_returns_acf = autocor(log_returns)
+    abs_log_returns_acf = autocor(abs.(log_returns))
 
     N = size(price_path, 1)
     L = size(log_returns_acf, 1)
@@ -91,7 +91,7 @@ function plot_all_stylized_facts(sf::StylizedFactsPlot)
 
     p1 = plot(1:size(sf.price_path, 1), sf.price_path, legend=false, xlab = "Time",
         ylab = "Price");
-    p2 = hist_log_returns(sf)
+    p2 = plot_log_returns(sf)
     p3 = plot_qq_log_returns(sf)
     p4 = plot_acf_order_flow(sf)
     p5 = plot_acf_log_returns(sf)
