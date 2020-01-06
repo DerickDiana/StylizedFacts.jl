@@ -48,7 +48,7 @@ end
 
 function plot_qq_log_returns(sf::StylizedFactsPlot)
     p1 = qqplot(fit(Normal, sf.log_returns), sf.log_returns,
-    xlab="Theoretical Quantiles", ylab="Sample Quantiles");
+    xlab="Theoretical Quantiles", ylab="Sample Quantiles", markersize=3);
     return p1
 end
 
