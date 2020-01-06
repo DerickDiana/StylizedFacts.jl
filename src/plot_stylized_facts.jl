@@ -98,6 +98,6 @@ function plot_all_stylized_facts(sf::StylizedFactsPlot)
     p5 = plot_acf_log_returns(sf)
     p6 = plot_acf_abs_log_returns(sf)
     p7 = plot(p1, p2, p3, p4, p5, p6, layout=l, tickfontsize=6, guidefontsize=8,
-        titlefontsize=10);
+        titlefontsize=10, right_margin=5mm);
     return p7
 end

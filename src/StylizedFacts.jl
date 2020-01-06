@@ -5,6 +5,8 @@ using Statistics
 using Distributions
 using StatsPlots
 using StatsBase
+using Plots.PlotMeasures
+
 
 include("order_classification.jl")
 include("plot_stylized_facts.jl")
