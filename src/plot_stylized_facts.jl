@@ -41,13 +41,14 @@ function hist_log_returns(sf::StylizedFactsPlot)
 end
 
 function plot_log_returns(sf::StylizedFactsPlot)
-    p1 = plot(1:size(sf.log_returns, 1), sf.log_returns, legend=false, xlab = "Time",
-        ylab = "Log Returns");
+    p1 = plot(1:size(sf.log_returns, 1), sf.log_returns, legend=false,
+    xlab = "Time", ylab = "Log Returns");
     return p1
 end
 
 function plot_qq_log_returns(sf::StylizedFactsPlot)
-    p1 = qqplot(fit(Normal, sf.log_returns), sf.log_returns);
+    p1 = qqplot(fit(Normal, sf.log_returns), sf.log_returns,
+    xlab="Theoretical Quantiles", ylab="Sample Quantiles");
     return p1
 end
 
@@ -89,8 +90,8 @@ function plot_all_stylized_facts(sf::StylizedFactsPlot)
 
     l = @layout [a b ; c d ; e f]
 
-    p1 = plot(1:size(sf.price_path, 1), sf.price_path, legend=false, xlab = "Time",
-        ylab = "Price");
+    p1 = plot(1:size(sf.price_path, 1), sf.price_path, legend=false,
+    xlab = "Time", ylab = "Price");
     p2 = plot_log_returns(sf)
     p3 = plot_qq_log_returns(sf)
     p4 = plot_acf_order_flow(sf)
