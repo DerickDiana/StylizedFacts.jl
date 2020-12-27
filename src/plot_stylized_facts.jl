@@ -86,7 +86,7 @@ function plot_acf_abs_log_returns(sf::StylizedFactsPlot)
     return p1
 end
 
-function plot_all_stylized_facts(sf::StylizedFactsPlot, size=(1000,800))
+function plot_all_stylized_facts(sf::StylizedFactsPlot, plot_size=(1000,800))
 
     l = @layout [a b ; c d ; e f]
 
@@ -98,6 +98,6 @@ function plot_all_stylized_facts(sf::StylizedFactsPlot, size=(1000,800))
     p5 = plot_acf_log_returns(sf)
     p6 = plot_acf_abs_log_returns(sf)
     p7 = plot(p1, p2, p3, p4, p5, p6, layout=l, tickfontsize=6, guidefontsize=8,
-        titlefontsize=10, right_margin=5mm, size=size);
+        titlefontsize=10, right_margin=5mm, size=plot_size);
     return p7
 end
