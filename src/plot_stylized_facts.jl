@@ -57,7 +57,7 @@ function plot_acf_log_returns(sf::StylizedFactsPlot)
     p1 = plot(1:sf.L, sf.log_returns_acf, xlab = "Lag",
         ylab = "ACF", title="Log Returns Autocorrelation",
         legend=false, seriestype=:sticks);
-
+    plot!(p1, 1:sf.L, x->0, linestyle = :solid, color="black")
     plot!(p1, 1:sf.L, x->sf.l_conf, linestyle = :dot)
     plot!(p1, 1:sf.L, x->sf.u_conf, linestyle = :dot)
 
@@ -69,7 +69,7 @@ function plot_acf_order_flow(sf::StylizedFactsPlot)
     p1 = plot(1:sf.L, sf.order_flow_acf, xlab = "Lag",
         ylab = "ACF", title="Order Flow Autocorrelation (Tick Rule)",
         legend=false, seriestype=:sticks);
-
+    plot!(p1, 1:sf.L, x->0, linestyle = :solid, color="black")
     plot!(p1, 1:sf.L, x->sf.l_conf, linestyle = :dot)
     plot!(p1, 1:sf.L, x->sf.u_conf, linestyle = :dot)
     return p1
@@ -80,7 +80,7 @@ function plot_acf_abs_log_returns(sf::StylizedFactsPlot)
     p1 = plot(1:sf.L, sf.abs_log_returns_acf, xlab = "Lag",
         ylab = "ACF", title="Absolute Log Returns Autocorrelation",
         legend=false, seriestype=:sticks);
-
+    plot!(p1, 1:sf.L, x->0, linestyle = :solid, color="black")
     plot!(p1, 1:sf.L, x->sf.l_conf, linestyle = :dot)
     plot!(p1, 1:sf.L, x->sf.u_conf, linestyle = :dot)
     return p1
