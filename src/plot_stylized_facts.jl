@@ -32,30 +32,30 @@ function StylizedFactsPlot(price_path)
         N, L, l_conf, u_conf)
 end
 
-function hist_log_returns(sf::StylizedFactsPlot)
+function hist_log_returns(sf::StylizedFactsPlot, title="Log Returns Histogram")
     pq = histogram(sf.log_returns, normalize=:pdf, label="observed returns",
-        ylab="Density", xlab="Return", title="Log Returns Histogram");
+        ylab="Density", xlab="Log Returns", title=title);
     f(x) = pdf(fit(Normal, sf.log_returns), x)
     plot!(pq, f, label="Normal Distribution");
     return pq
 end
 
-function plot_log_returns(sf::StylizedFactsPlot)
+function plot_log_returns(sf::StylizedFactsPlot, title="Log Returns")
     p1 = plot(1:size(sf.log_returns, 1), sf.log_returns, legend=false,
-    xlab="Time", ylab="Log Returns", title="Log Returns");
+    xlab="Time", ylab="Log Returns", title=title);
     return p1
 end
 
-function plot_qq_log_returns(sf::StylizedFactsPlot)
+function plot_qq_log_returns(sf::StylizedFactsPlot, title="Log Returns Normal Q-Q Plot")
     p1 = qqplot(fit(Normal, sf.log_returns), sf.log_returns,
-    xlab="Theoretical Quantiles", ylab="Sample Quantiles", title="Log Returns Normal Quantile-Quantile", markersize=3);
+    xlab="Theoretical Quantiles", ylab="Sample Quantiles", title=title, markersize=3);
     return p1
 end
 
-function plot_acf_log_returns(sf::StylizedFactsPlot)
+function plot_acf_log_returns(sf::StylizedFactsPlot, title="Log Returns Autocorrelation")
 
     p1 = plot(1:sf.L, sf.log_returns_acf, xlab="Lag",
-        ylab="ACF", title="Log Returns Autocorrelation",
+        ylab="ACF", title=title,
         legend=false, seriestype=:sticks);
     plot!(p1, 1:sf.L, x -> 0, linestyle=:solid, color="black")
     plot!(p1, 1:sf.L, x -> sf.l_conf, linestyle=:dot)
@@ -64,10 +64,10 @@ function plot_acf_log_returns(sf::StylizedFactsPlot)
     return p1
 end
 
-function plot_acf_order_flow(sf::StylizedFactsPlot)
+function plot_acf_order_flow(sf::StylizedFactsPlot, title="Order Flow Autocorrelation (Tick Rule)")
 
     p1 = plot(1:sf.L, sf.order_flow_acf, xlab="Lag",
-        ylab="ACF", title="Order Flow Autocorrelation (Tick Rule)",
+        ylab="ACF", title=title,
         legend=false, seriestype=:sticks);
     plot!(p1, 1:sf.L, x -> 0, linestyle=:solid, color="black")
     plot!(p1, 1:sf.L, x -> sf.l_conf, linestyle=:dot)
@@ -75,10 +75,10 @@ function plot_acf_order_flow(sf::StylizedFactsPlot)
     return p1
 end
 
-function plot_acf_abs_log_returns(sf::StylizedFactsPlot)
+function plot_acf_abs_log_returns(sf::StylizedFactsPlot, title="Absolute Log Returns Autocorrelation")
 
     p1 = plot(1:sf.L, sf.abs_log_returns_acf, xlab="Lag",
-        ylab="ACF", title="Absolute Log Returns Autocorrelation",
+        ylab="ACF", title=title,
         legend=false, seriestype=:sticks);
     plot!(p1, 1:sf.L, x -> 0, linestyle=:solid, color="black")
     plot!(p1, 1:sf.L, x -> sf.l_conf, linestyle=:dot)
@@ -86,18 +86,33 @@ function plot_acf_abs_log_returns(sf::StylizedFactsPlot)
     return p1
 end
 
-function plot_all_stylized_facts(sf::StylizedFactsPlot, plot_size=(1000, 800))
+function plot_all_stylized_facts(sf::StylizedFactsPlot, plot_size=(1000, 800), titles_off=false)
 
     l = @layout [a b ; c d ; e f]
 
-    p1 = plot(1:size(sf.price_path, 1), sf.price_path, legend=false,
-    xlab="Time", ylab="Price", title="Mid-Price Path");
-    p2 = plot_log_returns(sf)
-    p3 = plot_qq_log_returns(sf)
-    p4 = plot_acf_order_flow(sf)
-    p5 = plot_acf_log_returns(sf)
-    p6 = plot_acf_abs_log_returns(sf)
-    p7 = plot(p1, p2, p3, p4, p5, p6, layout=l, tickfontsize=6, guidefontsize=8,
-        titlefontsize=10, right_margin=5mm, size=plot_size);
-    return p7
+    if titles_off
+        p1 = plot(1:size(sf.price_path, 1), sf.price_path, legend=false,
+        xlab="Time", ylab="Mid-Price");
+        p2 = plot_log_returns(sf, title="")
+        p3 = plot_qq_log_returns(sf, title="")
+        p4 = plot_acf_order_flow(sf, title="")
+        p5 = plot_acf_log_returns(sf, title="")
+        p6 = plot_acf_abs_log_returns(sf, title="")
+        p7 = plot(p1, p2, p3, p4, p5, p6, layout=l, tickfontsize=6, guidefontsize=8,
+            titlefontsize=10, right_margin=5mm, size=plot_size);
+        return p7
+    else
+        p1 = plot(1:size(sf.price_path, 1), sf.price_path, legend=false,
+        xlab="Time", ylab="Mid-Price", title="Mid-Price Path");
+        p2 = plot_log_returns(sf)
+        p3 = plot_qq_log_returns(sf)
+        p4 = plot_acf_order_flow(sf)
+        p5 = plot_acf_log_returns(sf)
+        p6 = plot_acf_abs_log_returns(sf)
+        p7 = plot(p1, p2, p3, p4, p5, p6, layout=l, tickfontsize=6, guidefontsize=8,
+            titlefontsize=10, right_margin=5mm, size=plot_size);
+        return p7
+    end
+
+    
 end
