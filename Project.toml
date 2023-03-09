@@ -1,6 +1,6 @@
 name = "StylizedFacts"
-uuid = "489f0294-112a-11ea-024d-b9bac8d798ae"
-authors = ["Michael Laptop <michael.j.g.za@gmail.com>"]
+uuid = "ae478e41-b4b8-448a-b861-17666ff2bc90"
+authors = ["derickdiana "]
 version = "0.1.0"
 
 [deps]
