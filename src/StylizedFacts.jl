@@ -20,5 +20,4 @@ export  StylizedFactsPlot,
         plot_acf_log_returns,
         plot_acf_abs_log_returns
 
-
 end # module

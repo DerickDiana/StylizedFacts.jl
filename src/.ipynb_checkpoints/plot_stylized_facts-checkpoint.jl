@@ -110,7 +110,7 @@ function plot_all_stylized_facts(sf::StylizedFactsPlot, plot_size=(1000, 800), t
         p4 = plot_acf_order_flow(sf)
         p5 = plot_acf_log_returns(sf)
         p6 = plot_acf_abs_log_returns(sf)
-        p7 = hist_log_returns(sf, title="")
+        p7 = hist_log_returns(sf)
         p8 = plot(p1, p7, p2, p3, p4, p5, p6, layout=l, tickfontsize=6, guidefontsize=8,
             titlefontsize=10, right_margin=5mm, size=plot_size);
         return p8

@@ -3,7 +3,7 @@ function tick_rule(mid_prices)
     # the tick rule. Using the previous mid-price, if the transaction
     # price is higher then the trade is classified as buyer-initiated
     # if the transaction price is lower then the trade is classified as
-    # seller initiated and if there is no price change, but the previous
+    # seller initiated. If there is no price change, but the previous
     # tick change was up then the trade is a buy else it is a sell.
     # We cannot classify the first trade.
 
